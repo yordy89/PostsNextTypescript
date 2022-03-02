@@ -1,24 +1,24 @@
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import PostList from '../components/PostsList/PostList'
-import Search from '../components/Search/Search'
-import styled from 'styled-components'
-import getPosts from './api/getPosts'
+import type { NextPage } from "next";
+import { useState } from "react";
+import PostList from "../components/PostsList/PostList";
+import Search from "../components/Search/Search";
+import styled from "styled-components";
+import getPosts from "./api/getPosts";
 
-export async function getServerSideProps () {
-  const posts = await getPosts()
+export async function getServerSideProps() {
+  const posts = await getPosts();
 
   return {
     props: {
-      posts
-    }
-  }
+      posts,
+    },
+  };
 }
 
 const Home: NextPage<any> = ({ posts }) => {
-  const [query, setQuery] = useState<string>('')
+  const [query, setQuery] = useState<string>("");
 
-  const handleSearch = (value: string) => setQuery(value)
+  const handleSearch = (value: string) => setQuery(value);
 
   return (
     <Container>
@@ -27,10 +27,10 @@ const Home: NextPage<any> = ({ posts }) => {
         <PostList query={query} posts={posts} />
       </Content>
     </Container>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const Container = styled.div`
   width: 100%;
@@ -40,7 +40,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #beb5b5;
-`
+  @media (max-width: 768px) {
+    background-color: transparent;
+    padding: 0px;
+  }
+`;
 
 const Content = styled.div`
   width: 80%;
@@ -53,4 +57,10 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-`
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0px;
+  }
+`;

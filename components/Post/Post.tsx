@@ -31,7 +31,7 @@ const Post: React.FC<PostListProps> = ({
       /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
       ''
     )
-    return text.slice(0, 100)
+    return text.slice(0, 80)
   }
   const created_At = (date: string) => {
     const dateNow = new Date(date)
@@ -45,7 +45,7 @@ const Post: React.FC<PostListProps> = ({
       xDays: '{{count}} días'
     }
 
-    function formatDistance (token: any, count: any, options: any) {
+    function formatDistance (token: any = 'xDays', count: any, options: any) {
       options = options || {}
       const result = formatDistanceLocale[token].replace('{{count}}', count)
 
@@ -93,6 +93,9 @@ const Container = styled.div`
   padding: 5px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    background-color: white;
+  }
 `
 
 const Title = styled.h3`
@@ -118,7 +121,6 @@ const Body = styled.p`
   width: 100%;
   color: rgba(0, 0, 0, 0.8);
   font-size: 14;
-  overflow: hidden;
   margin-bottom: 0;
 `
 const Link = styled.a``

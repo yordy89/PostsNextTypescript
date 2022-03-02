@@ -48,4 +48,7 @@ const Container = styled.div`
   column-gap: 10px;
   row-gap: 10px;
   overflow-x: auto;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `
