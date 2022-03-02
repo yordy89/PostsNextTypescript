@@ -1,13 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import SearchIcon from '../../public/search.svg'
 
 interface SearchProps {
   handleChange: Function;
 }
 
-const Search: React.FC<SearchProps> = ({ handleChange}) => {
-
+const Search: React.FC<SearchProps> = ({ handleChange }) => {
   const SvgSearch = (props: any) => (
     <svg
       {...props}

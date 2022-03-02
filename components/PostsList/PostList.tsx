@@ -1,10 +1,9 @@
-import { NextComponentType } from "next";
-import { useState, useEffect } from "react";
-import Post from "../Post/Post";
+import React, { useState, useEffect } from 'react'
+import Post from '../Post/Post'
 import styled from 'styled-components'
-import getPosts from "../../pages/api/getPosts";
+import getPosts from '../../pages/api/getPosts'
 
-export interface Post {
+export interface PostI {
   author: string;
   story_title: string;
   created_at: string;
@@ -14,38 +13,34 @@ export interface Post {
 
 interface PostListProps {
   query: string;
-  posts: Post[];
+  posts: PostI[];
 }
 
-
-
 const PostList: React.FC<PostListProps> = ({ query, posts }) => {
-  const [post, setPost] = useState<Post[]>(posts || []);
+  const [post, setPost] = useState<PostI[]>(posts || [])
 
   useEffect(() => {
-    getPosts(query)
-    .then(setPost)
-  }, [query]);
+    getPosts(query).then(setPost)
+  }, [query])
 
   return (
     <Container>
       {post.length !== 0 &&
-        post.map((post: Post, index: number) => (
-            <Post
-              key={`${post.author}-${index}`}
-              author={post.author}
-              title={post.story_title}
-              createdAt={post.created_at}
-              url={post.story_url}
-              body={post.comment_text}
-            />
+        post.map((post: PostI, index: number) => (
+          <Post
+            key={`${post.author}-${index}`}
+            author={post.author}
+            title={post.story_title}
+            createdAt={post.created_at}
+            url={post.story_url}
+            body={post.comment_text}
+          />
         ))}
     </Container>
-  );
-};
+  )
+}
 
-export default PostList;
-
+export default PostList
 
 const Container = styled.div`
   display: grid;

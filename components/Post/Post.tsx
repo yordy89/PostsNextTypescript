@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 import {
   formatDistanceToNow,
   format,
-  differenceInCalendarDays,
-} from "date-fns";
-import locale from "date-fns/locale/en-US";
+  differenceInCalendarDays
+} from 'date-fns'
+import locale from 'date-fns/locale/en-US'
 
 interface PostListProps {
   author: string;
@@ -16,61 +16,62 @@ interface PostListProps {
 }
 
 const BodyText =
-  "I donx27t think the issue is being professional or not If the authorx27s goal is...";
+  'I donx27t think the issue is being professional or not If the authorx27s goal is...'
 
 const Post: React.FC<PostListProps> = ({
   author,
   createdAt,
   url,
   title,
-  body,
+  body
 }) => {
   const TextRegex = (value: string) => {
     const text = value.replace(
+      // eslint-disable-next-line
       /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,
-      ""
-    );
-    return text.slice(0, 100);
-  };
+      ''
+    )
+    return text.slice(0, 100)
+  }
   const created_At = (date: string) => {
-    const dateNow = new Date(date);
-    const days = differenceInCalendarDays(new Date(), dateNow);
+    const dateNow = new Date(date)
+    const days = differenceInCalendarDays(new Date(), dateNow)
 
     const formatDistanceLocale: any = {
-      xSeconds: "hace {{count}} segundo",
-      xMinutes: "{{count}} minuto",
-      aboutXHours: "{{count}} hora",
-      xHours: "{{count}}horas",
-      xDays: "{{count}} días",
-    };
+      xSeconds: 'hace {{count}} segundo',
+      xMinutes: '{{count}} minuto',
+      aboutXHours: '{{count}} hora',
+      xHours: '{{count}}horas',
+      xDays: '{{count}} días'
+    }
 
-    function formatDistance(token: any, count: any, options: any) {
-      options = options || {};
-      const result = formatDistanceLocale[token].replace("{{count}}", count);
+    function formatDistance (token: any, count: any, options: any) {
+      options = options || {}
+      const result = formatDistanceLocale[token].replace('{{count}}', count)
 
       if (options.addSuffix) {
-        return "hace " + result;
+        return 'hace ' + result
       }
-      return result;
+      return result
     }
 
     if (days > 7) {
-      return format(dateNow, "dd/M/yyyy");
+      return format(dateNow, 'dd/M/yyyy')
     } else {
       return formatDistanceToNow(new Date(date), {
         addSuffix: true,
         locale: {
           ...locale,
-          formatDistance,
-        },
-      });
+          formatDistance
+        }
+      })
     }
-  };
+  }
 
   return (
-    <Link href={url || "https://www.courier.com/"} target="_blank">
+    <Link href={url || 'https://www.courier.com/'} target="_blank">
       <Container>
-        <Title>{title || "Title"}</Title>
+        <Title>{title || 'Title'}</Title>
         <Content>
           <Text>{author}</Text>
           <Text>{created_At(createdAt)}</Text>
@@ -78,10 +79,10 @@ const Post: React.FC<PostListProps> = ({
         <Body>{body ? `${TextRegex(body)}...` : BodyText}</Body>
       </Container>
     </Link>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
 
 const Container = styled.div`
   width: 100%;
@@ -92,26 +93,26 @@ const Container = styled.div`
   padding: 5px;
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Title = styled.h3`
   color: black;
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
-`;
+`
 
 const Content = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
+`
 
 const Text = styled.h6`
   color: rgba(0, 0, 0, 0.5);
   font-size: 14px;
   margin: 0;
-`;
+`
 
 const Body = styled.p`
   width: 100%;
@@ -119,5 +120,5 @@ const Body = styled.p`
   font-size: 14;
   overflow: hidden;
   margin-bottom: 0;
-`;
-const Link = styled.a``;
+`
+const Link = styled.a``
